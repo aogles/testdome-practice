@@ -30,9 +30,16 @@ LEFT JOIN employees e ON d.department_id = e.department_id
 GROUP BY d.department_name;
 
 --ON joins statements by specifie info, and is used to match rows from tables with specified condition
---GROUP BY GROUPS ROWS WITH IDENTICAL VALUES IN TO SUMMARY COLLUMNS, AND CAN BE USED FOR THINGS LIKEGETTING THE SUM OR IN THE CASE AVERAGE, IT ALLOWS ONE TO PERFORM CALCULATIONS
+--GROUP BY: groups rows with identical values into summary columns, is used for things like getting the sum or in this case the average
 
 --  GROUP BY d.department_name clause groups the result set by the department_name column from the departments table. 
 --  This allows us to get the average salary for each department separately.
 
 -- GROUP BY clause: The GROUP BY clause is used to group rows with identical values in one or more columns into summary rows. When used with aggregate functions like AVG, SUM, COUNT
+
+select username, bool_or(role = 'internal') as internal, bool_or(role = 'admin') as admin
+from user_roles
+where role in ('internal', 'admin')
+group by username
+having count(role) = 1
+order by username
